@@ -1,0 +1,14 @@
+60b950300ae9cdbe1c1a3a612fc3a66e *DESCRIPTION
+a60b44bc28b3c9b38252a56de344736d *LICENSE
+37603777c2cddc9e26ecf04ff230ccf0 *NAMESPACE
+0b8c3afc23527321486590d0b4323986 *NEWS.md
+27967ba54cd98e909ed8d22dc69d2099 *R/regioncode.R
+c5cc57a55ab9e6e95065a044590f6daa *R/sysdata.rda
+6836af91e19248d60017146273dfafee *README.md
+e01d41981bbbc057e2fd808c1f6e89c6 *build/vignette.rds
+aa471565c89f95b0cde37defeadb450b *inst/doc/regioncode-vignette.R
+f7046268c117ab77438f1d52d79b11a9 *inst/doc/regioncode-vignette.Rmd
+2da3d994e71edb3676c6638d03f9a6db *inst/doc/regioncode-vignette.html
+880771533131f234cc24ed653296e12d *man/regioncode.Rd
+739af12b905fb716d586b4980872b0ac *vignettes/corruption_data.rda
+f7046268c117ab77438f1d52d79b11a9 *vignettes/regioncode-vignette.Rmd
