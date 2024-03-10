@@ -1,14 +1,18 @@
 ---
-title: "regioncode: Convert Region Names and Division Codes of China Over Years"
-author: "HU Yue and WU Wenquan"
+title: "regioncode: One-Step Solution for Chinese Region Conversions"
+author: 
+  - "HU Yue, YE Xinyi"
 date: "`r Sys.Date()`"
 output: 
     rmarkdown::html_vignette:
-      keep_md: TRUE
+      keep_md: false
 vignette: >
   %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{regioncode: Convert Region Names and Division Codes of China Over Years}
+  %\VignetteIndexEntry{regioncode: One-Step Solution for Chinese Region Conversions}
   %\VignetteEngine{knitr::rmarkdown}
+
+bibliography: s_regioncode.bib
+
 editor_options: 
   markdown: 
     wrap: sentence
@@ -16,68 +20,94 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+if(!require(regioncode)) install.packages("regioncode")
+library(regioncode)
+library(dplyr)
 ```
 
-Inspired by Vincent Arel-Bundock's amazing [`countrycode`](https://joss.theoj.org/papers/10.21105/joss.00848) package, we created `regioncode`, a package to achieve similar functions but specifically within China.
-`regioncode` aims to enable seamlessly converting regions' formal names, common-used names, and administrative division codes between each other in modern China (1986--2019).
+The term "city" in China encompasses a multifaceted concept. 
+It may denote a county-level, prefectural, or provincial administrative unit. 
+Scholars focusing on China often encounter frustration in converting these names or corresponding geocodes, particularly when handling data spanning multiple years. 
+This complexity further arises due to periodic modifications or cancellations of some unit's name by the central government [@GuoJiaTongJiJu2022].
 
-## Why `regioncode`?
+Inspired by Vincent Arel-Bundock's [`countrycode`](https://joss.theoj.org/papers/10.21105/joss.00848) package, we developed `regioncode`. 
+This package aims to perform similar functions but is tailored specifically for region name/code conversions within China for the period 1986--2019.
 
-The Chinese government gives unique geocodes for each county, city (prefecture), and provincial-level administrative unit.
-These "administrative division codes" are consistently [adjusted and updated](http://www.mca.gov.cn/article/sj/xzqh/1980/) to matched national and regional plans of development.
-The adjustments however may disturb researchers when they conduct studies over time or merge geo-based data from different years.
-Especially, when researchers render statistical data on a Chinese map, different geocodes between map data and statistical data can cause mess-up outputs.
+# Why `regioncode`?
 
-This package aims to conquer such difficulties by a one-step solution.
-In the current version, `regioncode` enables seamlessly converting formal names, common-used names, language zone, and division codes of Chinese provinces and prefectures between each other and across thirty-four years from 1986 to 2019.
+The Chinese government assigns unique geocodes to each county, city (prefecture), and provincial-level administrative unit. 
+These "administrative division codes" are consistently [adjusted and updated](https://www.mca.gov.cn/mzsj/xzqh/2022/202202xzqh.html) to align with national and regional development plans [@MinZhengBu2022]. 
+However, these adjustments may pose challenges for researchers conducting longitudinal studies or merging geo-based data from different years. 
+For instance, inconsistencies between map data and statistical data can result in erroneous outputs when rendering statistical data on a Chinese map.
+
+*A One-Step Solution: `regioncode`*
+
+`regioncode` offers a one-step solution to these challenges. 
+In its current version, it enables seamless conversion of formal names, commonly used names, and administrative division codes of Chinese provinces and prefectures between each other, covering a span of thirty-four years from 1986 to 2019.
+
 
 # Installation
 
 To install:
 
--   the latest released version: `install.packages("regioncode")`.
--   the latest developing version: `remotes::install_github("sammo3182/regioncode")`.
+-  The latest released version: `install.packages("regioncode")`.
+-  The latest developing version: `remotes::install_github("sammo3182/regioncode")`.
 
 # Basic Usage
 
-We uses a randomly drawn sample of Yuhua Wang's [`China’s Corruption Investigations Dataset`](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QZRAD) to illustrate how the package works.
-In the data, the division codes were recorded with the 2019 version, and we added prefectural abbreviations for the sake of illustration.
+We demonstrate the basic application of `regioncode` with a toy data randomly sampled from @Wang2020c's China's Corruption Investigations Dataset. 
+In the `regioncode` field, administrative division codes are denoted as `code`, and the formal names of regions are referred to as `name`. 
+The current version facilitates the mutual conversion between any pair of these elements. 
+Users merely need to input a character vector of names or a numeric vector of geocodes into the function, specifying the desired output type with the `convert_to` argument.
 
-In `regioncode` package, we named administrative division codes as `code`, regions' formal names as `name`, and their commonly used abbreviation as `sname`.
-The current version enables mutual conversion between any pair of them.
-To do so, users just need to pass a character vector of names or a numeric vector of geocodes into the function.
-In the current version, the function can produce three types of output at both the prefectural and provincial levels: codes (`code`), names (`name`) and area (`area`, such as 华北, 东北, 华南, etc.).
-One just needs to specify which type of the output they want in the argument `convert_to` and corresponding years of the input and output.
-For example, the following codes convert the 2019 geocodes in the `corruption` data to their 1989 version:
+The following example illustrates the conversion of 2019 geocodes in the sample data to their 1989 version.
+It is essential for users to correctly set the `year_from` argument to reference the appropriate year.
+Subsequently, the `year_to` and `convert_to` arguments can be used to determine the desired year's projection and the format type.
 
 ```{r code2code}
 library(regioncode)
 
 data("corruption")
 
-# Original 2019 version
-corruption$prefecture_id
-
-# 1999 version
+# Conversion to the 1989 version
 regioncode(data_input = corruption$prefecture_id, 
-           convert_to = "code", # default set
+           convert_to = "code", # default setting
            year_from = 2019,
            year_to = 1989)
+
+# Comparison
+tibble(
+  code2019 = corruption$prefecture_id,
+  code1989 = regioncode(data_input = corruption$prefecture_id,
+           convert_to = "code", # default setting
+           year_from = 2019,
+           year_to = 1989),
+  name2019 = regioncode(data_input = corruption$prefecture_id,
+           convert_to = "name", # default setting
+           year_from = 2019,
+           year_to = 2019),
+  name1989 = regioncode(data_input = corruption$prefecture_id,
+           convert_to = "name", # default setting
+           year_from = 2019,
+           year_to = 1989)
+)
 ```
 
-Note that if a region was initially geocoded in e.g., 1989 and included in a new region, in 2019, the new region geocode will be used hereafter.
-If a big place was broken into several regions, the later-year codes will be aligned with the first region according to the ascendant order of the regions' numeric geocodes.
+Note that if a region was initially geocoded in, for example, 1989 and later included in a new region in 2019, the new region geocode will be subsequently used.
+If a large area was divided into several regions, the later-year codes will align with the first region according to the ascending order of the regions' numeric geocodes.
 
-By altering the output format to `name`, one can easily convert codes or region names of a given year to region names in another year.
-`regioncode` automatically detects the input format, so users need to specify the *output* format only (together with the input and output years) to gain what they want.
-In the following example, we convert the geocode variable in the `corruption` dataset to region names and the name variable to codes and names in another year.
+In the current version, `regioncode` automatically identifies the input format: numerics for geocodes and characters for names.
+The following example demonstrates the conversions from various types of input to alternative formats of outputs:
 
 ```{r code2name}
-# The original name
-corruption$prefecture
+# Original name
+tibble(
+  id = corruption$prefecture_id,
+  name = corruption$prefecture
+)
 
 # Codes to name
-
 regioncode(data_input = corruption$prefecture_id, 
            convert_to = "name",
            year_from = 2019,
@@ -90,7 +120,6 @@ regioncode(data_input = corruption$prefecture,
            year_to = 2019)
 
 # Name to name of a different year
-
 regioncode(data_input = corruption$prefecture, 
            convert_to = "name",
            year_from = 2019,
@@ -99,43 +128,195 @@ regioncode(data_input = corruption$prefecture,
 
 # Advanced Applications
 
-To further help uses with "messier" data and diverse demands, `regioncode` provides five special conversions: conversion from data with incomplete data, specification of municipalities, conversion sociopolitical areas and linguistic areas, and pinyin output.
-The current version also allows conversions at the provincial level.
+The `regioncode` package also offers specialized conversion functions to assist users with more complex data and diverse requirements, including:
 
-## Incomplete naming prefectures.
+1. Conversion from/to incomplete names.
+1. Different handling of municipalities.
+1. Return of population-based city ranks.
+1. Return of pinyin format of outputs.
+1. Conversion of provincial data.
+1. Return of administrative areas.
+1. Return of linguistic zones.
 
-More than often, data codes may omit the administrative level when recording geo-information, e.g., using "北京" instead of "北京市." 
-To accomplish conversions of such data, one needs to specify the `incomplete_name` argument.
-If the input data is incomplete, users should set the argument as "from"; 
-if they want the output name (when `convert_to = "name"`) to be without "city" or "prefecture," they can set the argument to "to" (see the example below); 
-and if users want to gain incomplete names for both input and output names, `incomplete_name = "both"`.
-All the above conversions can be over years.
+## Incomplete Naming of Prefectures
+
+Frequently, data codes may exclude the administrative level when recording geographical information, such as "北京" instead of "北京市," or "内蒙" instead of "内蒙古自治区" referred to as "incomplete names."
+To execute conversions for such data, one can specify the `incomplete_name` argument to "TRUE."
+As long as there are two characters that can help to identify the city or province, `regioncode` can conduct the conversion.
+In the following example, we randomly removed 70% of the input city names to incomplete names and show how `regioncode` can deal with such problems:
 
 ```{r incomplete_name}
-# Full, official names
+# Original full names
 corruption$prefecture
 
-regioncode(data_input = corruption$prefecture, 
+fake_incomplete <- corruption$prefecture
+
+index_incomplete <- sample(seq(length(corruption$prefecture)), 7)
+
+fake_incomplete[index_incomplete] <- fake_incomplete[index_incomplete] |> 
+  substr(start = 1, stop = 2)
+
+fake_incomplete
+
+# Conversion to full names in 2008
+regioncode(data_input = fake_incomplete, 
            convert_to = "name",
            year_from = 2019,
-           year_to = 1989,
-           incomplete_name = "to")
+           year_to = 2008,
+           incomplete_name = TRUE)
+
 ```
 
 ## Municipalities
 
-Municipalities ("直辖市") are geographically cities but administratively provincial.
-The districts within these municipalities are thus prefectural.
-Different analyses treat these districts differently: some parallel the districts aligned with other prefectures, while the others treat the entire municipality as one prefecture.
-To deal with the latter situation, `regioncode` sets an argument `zhixiashi`.
-When the argument is set `TRUE`, the municipalities are treated as whole prefectures, and their provincial codes are used as the geocodes.
+Municipalities ("直辖市") in China are geographically cities but administratively provincial.
+Different geographic data may categorize them differently.
+Some data may treat municipalities as equivalent to prefectures.
 
-## Sociopolitical and Linguistic Areas
+To convert this type of data, `regioncode` introduces a specific argument `zhixiashi`.
+The default value is "FALSE," treating municipalities as provinces.
+When set to "TRUE," municipalities are considered as prefectures, and their provincial codes are utilized as geocodes.
 
-Due to social, political, and martial reasons, Chinese regions are divided into seven regions:
+The following example illustrates the municipalities identifier with a mixed string of names of municipalities, their districts, and a prefecture:
 
+```{r municipality}
+names_municipality <- c("北京市", # Beijing, a municipality
+                        "海淀区", # A district of Beijing
+                        "上海市", # Shanghai, a municipality
+                        "静安区", # A district of Shanghai
+                        "济南市") # A prefecture of Shandong
 
-| region | provincial-level administrative unit                           |
+# When `zhixiashi` is FALSE, only the districts are recognized
+regioncode(data_input = names_municipality, 
+           year_from = 2019,
+           year_to = 2019, 
+           convert_to = "code",
+           zhixiashi = FALSE)
+
+# When `zhixiashi` is TRUE, municipalities are recognized
+regioncode(data_input = names_municipality,
+           year_from = 2019,
+           year_to = 2019,
+           convert_to = "code",
+           zhixiashi = TRUE)
+```
+
+## City Ranking
+
+The *Statistical Yearbook of Urban and Rural Construction* classifies Chinese cities into different levels, largely based on their populations [@GuoJiaTongJiJu2022a].
+From 1989 to 2014, there were four levels of cities, and the system expanded to a 7-level scale after 2014, as detailed in the following table:
+
+| Criterion           | Population                | Rank         
+|:-------------------|-----------------------|------------------|
+| Old (1989)| > 1 million            |   超大城市       |
+|                    | 500,000 ~ 1 million   |   大城市         |
+|                    | 200,000 ~ 500,000     |   中等城市       |
+|                    | < 200,000              |   小城市         |
+|                    |                       |                  |
+| New (2014)| > 10 million           |   超大城市       |
+|                    | 5 million ~ 10 million|   特大城市       |
+|                    | 3 million ~ 5 million |   I型大城市      |
+|                    | 1 million ~ 3 million |   II型大城市     |
+|                    | 500,000 ~ 1 million   |   中等城市       | 
+|                    | 200,000 ~ 500,000     |   I型小城市      |
+|                    | < 200,000              |   II型小城市     |  
+
+The `regioncode` function can return the rank of cities according to their populations for a given year.
+If the population is untraceable, the rank will be marked as `NA`.
+Users simply need to set `convert_to = "rank"` to perform the conversion.
+For regions in and before 1989, the old ranking system is applied.
+For other region-years, the function will return the new ranks.
+For some cities, we cannot find their populations from the official sources. 
+The `rank` of them will be `NA`.
+
+The following example compares the ranks from the same input in different years:
+
+```{r rank}
+tibble(
+  city = corruption$prefecture,
+  rank1989 = regioncode(data_input = corruption$prefecture, 
+           year_from = 2019,
+           year_to = 1989, 
+           convert_to="rank"),
+  rank2014 = regioncode(data_input = corruption$prefecture, 
+           year_from = 2019,
+           year_to = 2014, 
+           convert_to = "rank")
+)
+```
+
+## Pinyin
+
+Pinyin is a phonetic romanization of Chinese characters.
+Some data may store region names in pinyin instead of Chinese characters.
+The default name output of `regioncode` is in Chinese characters.
+However, thanks to Peng Zhao and Qu Cheng's [pinyin](https://github.com/pzhaonet/pinyin) package, users can now obtain pinyin format output from the `regioncode` function by setting the argument `to_pinyin = TRUE`.
+This function also corrects the romanization output for areas with special spellings, such as Shanxi vs. Shaanxi, Inner Mongolia, and special administrative regions.
+It works for official names, incomplete names, and administrative area outputs.
+The following example demonstrates how this function operates on various demands:
+
+```{r pinyin}
+tibble(
+  city = corruption$prefecture,
+  cityPY = regioncode(data_input = corruption$prefecture, 
+           year_from = 2019,
+           year_to = 1989, 
+           convert_to = "name",
+           to_pinyin = TRUE
+           ),
+  areaPY = regioncode(data_input = corruption$prefecture, 
+           year_from = 2019,
+           year_to = 1989, 
+           convert_to = "area",
+           to_pinyin = TRUE
+           )
+)
+
+# Regions with special spelling
+regioncode(data_input = c("山西", "陕西", "内蒙古", "香港", "澳门"), 
+           year_from = 2019,
+           year_to = 2008, 
+           convert_to = "name",
+           incomplete_name = TRUE,
+           province = TRUE,
+           to_pinyin = TRUE
+           )
+```
+
+## Provinces
+
+The `regioncode` function also supports conversions at the provincial level.
+By setting the argument `province = TRUE`, users can convert all geocodes and names at this level.
+Chinese provinces have abbreviations, and when the converted data only contain abbreviations, users can set the `convert_to` argument to `abbreTocode`, `abbreToname`, or `abbreToarea` to obtain the desired data types.
+To receive abbreviation outputs, simply set `convert_to = "abbre"`.
+
+The following example demonstrates the conversion of a vector of province geocodes to their official names and abbreviations:
+
+```{r provinces}
+tibble(
+  province = corruption$province_id,
+  prov_name = regioncode(data_input = corruption$province_id, 
+           convert_to = "name",
+           year_from = 2019,
+           year_to = 1989,
+           province = TRUE),
+  prov_abbre = regioncode(data_input = corruption$province_id, 
+           convert_to = "codeToabbre",
+           year_from = 2019,
+           year_to = 1989,
+           province = TRUE)
+)
+```
+
+## Geographic Units Beyond Provinces
+
+The current version of `regioncode` encompasses two types of region conversion beyond the provincial level: administrative area and linguistic zones.
+
+### Administrative Area
+
+Chinese regions are divided into seven areas for social, political, and martial reasons [@SunPing2020]:
+
+| Region | Provincial-level Administrative Unit                           |
 |:-------|----------------------------------------------------------------|
 | 华北   | 北京市, 天津市, 山西省, 河北省, 内蒙古自治区                   |
 | 东北   | 黑龙江省, 吉林省, 辽宁省                                       |
@@ -145,107 +326,68 @@ Due to social, political, and martial reasons, Chinese regions are divided into 
 | 西南   | 重庆市, 四川省, 贵州省, 云南省, 西藏自治区                     |
 | 西北   | 陕西省, 甘肃省, 青海省, 宁夏回族自治区, 新疆维吾尔自治区       |
 
-`regioncode` also offers a method "area" to convert codes and names of the region into such areas.
+In certain cases, users may wish to identify the area to which a prefecture or province belongs.
+`regioncode` offers a function to convert codes and names of the region (both prefectures and provinces) into areas by setting the output format as "area":
 
 ```{r 2area}
 regioncode(data_input = corruption$prefecture, 
            year_from = 2019,
            year_to = 1989, 
-           convert_to="area")
+           convert_to = "area")
 ```
 
-China is a multilingual country with a variety of dialects.
-These dialects may be used by several prefectures in a province or province.
-Prefectures from different provinces may also share the same dialect.
+### Linguistic Zone
 
-`regioncode` allows users to gain linguistic zones the prefectures belong as an output. Users can gain two levels of linguistic zones, dialect groups and dialect sub-groups by setting the argument `to_pinyin` to `dia_group` or `dia_sub_group`.
-Note that, the linguistic distribution in China is too complex for precisely gauging at the prefectural level.
-The linguistic zone output from `regioncode` is thus at most for reference rather than rigorous linguistic research.
+China is a multilingual country with various dialects.
+These dialects may be used across several prefectures in a province or even across different provinces.
+For political and sociolinguistic studies, `regioncode` includes a function to return approximate linguistic zones of given geocodes or prefectural names.
+In the current version, `regioncode` offers two levels of linguistic zone identification: dialect groups (`dia_group`, "方言大类") and dialect sub-groups (`dia_sub_group`, "分区片"), according to the 1987 language atlas of China [@LiEtAl1987].
+(When `province = TRUE`, the linguistic conversion can only be to the dialect group level.)
+
+The following example converts the toy data to dialect groups and sub-groups:
 
 ```{r language_zone}
-regioncode(data_input = corruption$prefecture, 
+tibble(
+  city = corruption$prefecture,
+  dialectGroup = regioncode(data_input = corruption$prefecture, 
            year_from = 2019,
            year_to = 1989,
-           to_dialect = "dia_group")
-
-regioncode(data_input = corruption$prefecture, 
+           to_dialect = "dia_group"),
+  dialectSubGroup = regioncode(data_input = corruption$prefecture, 
            year_from = 2019,
            year_to = 1989,
            to_dialect = "dia_sub_group")
+)
 ```
 
-## Pinyin
+Note that the linguistic distribution in China is too complex for precise gauging at the prefectural level, and it continually changes with population dynamics.
+The linguistic zone output from `regioncode` is thus for reference rather than rigorous linguistic research.
 
-Pinyin is a Chinese phonetic romanization.
-Some data stores the region names with pinyin instead of Chinese characters.
-The default name output of `regioncode` uses Chinese characters, but one can gain pinyin output by setting the argument `to_pinyin = TRUE`.
-The effect can be applied to either official name, incomplete name, or sociopolitical area outputs.
+# Conclusion
 
-```{r pinyin}
-regioncode(data_input = corruption$prefecture, 
-           year_from = 2019,
-           year_to = 1989, 
-           convert_to="name",
-           to_pinyin=TRUE
-           )
+`regioncode` offers a convenient method for converting Chinese administrative division codes, official names, and facilitating various specific conversions. 
+The development of the package is ongoing, with future versions aiming to add more administrative level choices and enriching data. 
+Collaboration is welcome, and questions, comments, or bug reports can be directed to [Github Issues](https://github.com/sammo3182/regioncode/issues). 
 
-regioncode(data_input = corruption$prefecture, 
-           year_from = 2019,
-           year_to = 1989, 
-           convert_to="name",
-           incomplete_name = "to",
-           to_pinyin=TRUE
-           )
+We extend our appreciation to LI Ruizhe, ZHU Meng, SHI Yuyang, XU Yujia, PAN Yuxin, TIAN Haiting, SHAO Weihang, CHEN Yuanqian, and LIU Xueyan for their contributions to data collection and function editing of this package.
 
-regioncode(data_input = corruption$prefecture, 
-           year_from = 2019,
-           year_to = 1989, 
-           convert_to="area",
-           to_pinyin=TRUE
-           )
-```
+# Reference
 
-## Provinces
+::: {#refs}
+:::
 
-`regioncode` allows conversions at not only the prefectural but provincial level.
-By setting the argument `province = TRUE`, users can accomplish all the code, name, and area conversions at the provincial level.
-(Note that, at the provincial level, the linguistic conversion can be only to dialect group.) 
-Moreover, since provinces have fixed abbreviations, `regioncode` allows names not only being, e.g., "宁夏" instead of "宁夏回族自治区" but also "宁".
-When the inputs are abbreviations, users can set the `convert_to` argument to `abbreTocode`, `abbreToname`, or `abbreToarea`.
-When they want provincial abbreviation outputs, just set `convert_to = "abbre"`.
 
-```{r provinces}
-regioncode(data_input = corruption$province_id, 
-           convert_to = "codeToabbre",
-           year_from = 2019,
-           year_to = 1989,
-           province = TRUE)
-```
-## Conclusion
+# Affiliation
 
-`regioncode` provides a convenient way to convert Chinese administrative division codes, official names, sociopolitical and linguistic areas, abbreviations, and so on between each other.
-This vignette offers a quick view of package features and a short tutorial for users.
-
-The development of the package is ongoing.
-Future versions aim to add more administrative level choices, from province level to county level.
-Data are also enriching.
-Welcome to join us if you are also interested (see the affiliations below).
-Please contact us with any questions or comments.
-Bug reports can be conducted by [Github Issues](https://github.com/sammo3182/regioncode/issues).
-
-Also thanks ZHU Meng and LIU Xueyan for helping writing the 'Advanced Application' section of this vignette.
-
-## Affiliation
-
-Dr. Yue Hu
+Yue Hu
 
 Department of Political Science,\
 Tsinghua University,\
 Email: [yuehu\@tsinghua.edu.cn](mailto:yuehu@tsinghua.edu.cn){.email}\
-Website: <https://sammo3182.github.io>
+Website: <https://www.drhuyue.site>
 
-Wenquan Wu
+Xinyi Ye
 
 Department of Political Science,\
 Tsinghua University,\
-Email: [wuwq20\@mails.tsinghua.edu.cn](mailto:wuwq20@mails.tsinghua.edu.cn){.email}
+Email: [yexy23\@mails.tsinghua.edu.cn](mailto:yexy23@mails.tsinghua.edu.cn){.email}

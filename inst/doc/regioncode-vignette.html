@@ -10,35 +10,48 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="HU Yue and WU Wenquan" />
+<meta name="author" content="HU Yue, YE Xinyi" />
 
-<meta name="date" content="2021-08-02" />
+<meta name="date" content="2024-03-10" />
 
-<title>regioncode: Convert Region Names and Division Codes of China Over Years</title>
+<title>regioncode: One-Step Solution for Chinese Region Conversions</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvDQovLyBiZSBjb21wYXRpYmxlIHdpdGggdGhlIGJlaGF2aW9yIG9mIFBhbmRvYyA8IDIuOCkuDQpkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdET01Db250ZW50TG9hZGVkJywgZnVuY3Rpb24oZSkgew0KICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsNCiAgdmFyIGksIGgsIGE7DQogIGZvciAoaSA9IDA7IGkgPCBocy5sZW5ndGg7IGkrKykgew0KICAgIGggPSBoc1tpXTsNCiAgICBpZiAoIS9eaFsxLTZdJC9pLnRlc3QoaC50YWdOYW1lKSkgY29udGludWU7ICAvLyBpdCBzaG91bGQgYmUgYSBoZWFkZXIgaDEtaDYNCiAgICBhID0gaC5hdHRyaWJ1dGVzOw0KICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7DQogIH0NCn0pOw0K"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -52,55 +65,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -109,13 +121,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -126,8 +145,211 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+<style type="text/css">
 
-<link rel="stylesheet" href="data:text/css,body%20%7Bbackground%2Dcolor%3A%20%23fff%3Bmargin%3A%201em%20auto%3Bmax%2Dwidth%3A%20700px%3Boverflow%3A%20visible%3Bpadding%2Dleft%3A%202em%3Bpadding%2Dright%3A%202em%3Bfont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3Bfont%2Dsize%3A%2014px%3Bline%2Dheight%3A%201%2E35%3B%7D%23TOC%20%7Bclear%3A%20both%3Bmargin%3A%200%200%2010px%2010px%3Bpadding%3A%204px%3Bwidth%3A%20400px%3Bborder%3A%201px%20solid%20%23CCCCCC%3Bborder%2Dradius%3A%205px%3Bbackground%2Dcolor%3A%20%23f6f6f6%3Bfont%2Dsize%3A%2013px%3Bline%2Dheight%3A%201%2E3%3B%7D%23TOC%20%2Etoctitle%20%7Bfont%2Dweight%3A%20bold%3Bfont%2Dsize%3A%2015px%3Bmargin%2Dleft%3A%205px%3B%7D%23TOC%20ul%20%7Bpadding%2Dleft%3A%2040px%3Bmargin%2Dleft%3A%20%2D1%2E5em%3Bmargin%2Dtop%3A%205px%3Bmargin%2Dbottom%3A%205px%3B%7D%23TOC%20ul%20ul%20%7Bmargin%2Dleft%3A%20%2D2em%3B%7D%23TOC%20li%20%7Bline%2Dheight%3A%2016px%3B%7Dtable%20%7Bmargin%3A%201em%20auto%3Bborder%2Dwidth%3A%201px%3Bborder%2Dcolor%3A%20%23DDDDDD%3Bborder%2Dstyle%3A%20outset%3Bborder%2Dcollapse%3A%20collapse%3B%7Dtable%20th%20%7Bborder%2Dwidth%3A%202px%3Bpadding%3A%205px%3Bborder%2Dstyle%3A%20inset%3B%7Dtable%20td%20%7Bborder%2Dwidth%3A%201px%3Bborder%2Dstyle%3A%20inset%3Bline%2Dheight%3A%2018px%3Bpadding%3A%205px%205px%3B%7Dtable%2C%20table%20th%2C%20table%20td%20%7Bborder%2Dleft%2Dstyle%3A%20none%3Bborder%2Dright%2Dstyle%3A%20none%3B%7Dtable%20thead%2C%20table%20tr%2Eeven%20%7Bbackground%2Dcolor%3A%20%23f7f7f7%3B%7Dp%20%7Bmargin%3A%200%2E5em%200%3B%7Dblockquote%20%7Bbackground%2Dcolor%3A%20%23f6f6f6%3Bpadding%3A%200%2E25em%200%2E75em%3B%7Dhr%20%7Bborder%2Dstyle%3A%20solid%3Bborder%3A%20none%3Bborder%2Dtop%3A%201px%20solid%20%23777%3Bmargin%3A%2028px%200%3B%7Ddl%20%7Bmargin%2Dleft%3A%200%3B%7Ddl%20dd%20%7Bmargin%2Dbottom%3A%2013px%3Bmargin%2Dleft%3A%2013px%3B%7Ddl%20dt%20%7Bfont%2Dweight%3A%20bold%3B%7Dul%20%7Bmargin%2Dtop%3A%200%3B%7Dul%20li%20%7Blist%2Dstyle%3A%20circle%20outside%3B%7Dul%20ul%20%7Bmargin%2Dbottom%3A%200%3B%7Dpre%2C%20code%20%7Bbackground%2Dcolor%3A%20%23f7f7f7%3Bborder%2Dradius%3A%203px%3Bcolor%3A%20%23333%3Bwhite%2Dspace%3A%20pre%2Dwrap%3B%20%7Dpre%20%7Bborder%2Dradius%3A%203px%3Bmargin%3A%205px%200px%2010px%200px%3Bpadding%3A%2010px%3B%7Dpre%3Anot%28%5Bclass%5D%29%20%7Bbackground%2Dcolor%3A%20%23f7f7f7%3B%7Dcode%20%7Bfont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3Bfont%2Dsize%3A%2085%25%3B%7Dp%20%3E%20code%2C%20li%20%3E%20code%20%7Bpadding%3A%202px%200px%3B%7Ddiv%2Efigure%20%7Btext%2Dalign%3A%20center%3B%7Dimg%20%7Bbackground%2Dcolor%3A%20%23FFFFFF%3Bpadding%3A%202px%3Bborder%3A%201px%20solid%20%23DDDDDD%3Bborder%2Dradius%3A%203px%3Bborder%3A%201px%20solid%20%23CCCCCC%3Bmargin%3A%200%205px%3B%7Dh1%20%7Bmargin%2Dtop%3A%200%3Bfont%2Dsize%3A%2035px%3Bline%2Dheight%3A%2040px%3B%7Dh2%20%7Bborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3Bpadding%2Dtop%3A%2010px%3Bpadding%2Dbottom%3A%202px%3Bfont%2Dsize%3A%20145%25%3B%7Dh3%20%7Bborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3Bpadding%2Dtop%3A%2010px%3Bfont%2Dsize%3A%20120%25%3B%7Dh4%20%7Bborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3Bmargin%2Dleft%3A%208px%3Bfont%2Dsize%3A%20105%25%3B%7Dh5%2C%20h6%20%7Bborder%2Dbottom%3A%201px%20solid%20%23ccc%3Bfont%2Dsize%3A%20105%25%3B%7Da%20%7Bcolor%3A%20%230033dd%3Btext%2Ddecoration%3A%20none%3B%7Da%3Ahover%20%7Bcolor%3A%20%236666ff%3B%20%7Da%3Avisited%20%7Bcolor%3A%20%23800080%3B%20%7Da%3Avisited%3Ahover%20%7Bcolor%3A%20%23BB00BB%3B%20%7Da%5Bhref%5E%3D%22http%3A%22%5D%20%7Btext%2Ddecoration%3A%20underline%3B%20%7Da%5Bhref%5E%3D%22https%3A%22%5D%20%7Btext%2Ddecoration%3A%20underline%3B%20%7Dcode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20code%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20code%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20code%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20code%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20code%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20code%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20code%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20code%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20code%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20code%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20" type="text/css" />
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -139,103 +361,466 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<h1 class="title toc-ignore">regioncode: Convert Region Names and Division Codes of China Over Years</h1>
-<h4 class="author">HU Yue and WU Wenquan</h4>
-<h4 class="date">2021-08-02</h4>
+<h1 class="title toc-ignore">regioncode: One-Step Solution for Chinese
+Region Conversions</h1>
+<h4 class="author">HU Yue, YE Xinyi</h4>
+<h4 class="date">2024-03-10</h4>
 
 
 
-<p>Inspired by Vincent Arel-Bundock’s amazing <a href="https://joss.theoj.org/papers/10.21105/joss.00848"><code>countrycode</code></a> package, we created <code>regioncode</code>, a package to achieve similar functions but specifically within China. <code>regioncode</code> aims to enable seamlessly converting regions’ formal names, common-used names, and administrative division codes between each other in modern China (1986–2019).</p>
-<div id="why-regioncode" class="section level2">
-<h2>Why <code>regioncode</code>?</h2>
-<p>The Chinese government gives unique geocodes for each county, city (prefecture), and provincial-level administrative unit. These “administrative division codes” are consistently <a href="http://www.mca.gov.cn/article/sj/xzqh/1980/">adjusted and updated</a> to matched national and regional plans of development. The adjustments however may disturb researchers when they conduct studies over time or merge geo-based data from different years. Especially, when researchers render statistical data on a Chinese map, different geocodes between map data and statistical data can cause mess-up outputs.</p>
-<p>This package aims to conquer such difficulties by a one-step solution. In the current version, <code>regioncode</code> enables seamlessly converting formal names, common-used names, language zone, and division codes of Chinese provinces and prefectures between each other and across thirty-four years from 1986 to 2019.</p>
+<p>The term “city” in China encompasses a multifaceted concept. It may
+denote a county-level, prefectural, or provincial administrative unit.
+Scholars focusing on China often encounter frustration in converting
+these names or corresponding geocodes, particularly when handling data
+spanning multiple years. This complexity further arises due to periodic
+modifications or cancellations of some unit’s name by the central
+government <span class="citation">(国家统计局 2022a)</span>.</p>
+<p>Inspired by Vincent Arel-Bundock’s <a href="https://joss.theoj.org/papers/10.21105/joss.00848"><code>countrycode</code></a>
+package, we developed <code>regioncode</code>. This package aims to
+perform similar functions but is tailored specifically for region
+name/code conversions within China for the period 1986–2019.</p>
+<div id="why-regioncode" class="section level1">
+<h1>Why <code>regioncode</code>?</h1>
+<p>The Chinese government assigns unique geocodes to each county, city
+(prefecture), and provincial-level administrative unit. These
+“administrative division codes” are consistently <a href="https://www.mca.gov.cn/mzsj/xzqh/2022/202202xzqh.html">adjusted
+and updated</a> to align with national and regional development plans
+<span class="citation">(民政部 2022)</span>. However, these adjustments
+may pose challenges for researchers conducting longitudinal studies or
+merging geo-based data from different years. For instance,
+inconsistencies between map data and statistical data can result in
+erroneous outputs when rendering statistical data on a Chinese map.</p>
+<p><em>A One-Step Solution: <code>regioncode</code></em></p>
+<p><code>regioncode</code> offers a one-step solution to these
+challenges. In its current version, it enables seamless conversion of
+formal names, commonly used names, and administrative division codes of
+Chinese provinces and prefectures between each other, covering a span of
+thirty-four years from 1986 to 2019.</p>
 </div>
 <div id="installation" class="section level1">
 <h1>Installation</h1>
 <p>To install:</p>
 <ul>
-<li>the latest released version: <code>install.packages(&quot;regioncode&quot;)</code>.</li>
-<li>the latest developing version: <code>remotes::install_github(&quot;sammo3182/regioncode&quot;)</code>.</li>
+<li>The latest released version:
+<code>install.packages(&quot;regioncode&quot;)</code>.</li>
+<li>The latest developing version:
+<code>remotes::install_github(&quot;sammo3182/regioncode&quot;)</code>.</li>
 </ul>
 </div>
 <div id="basic-usage" class="section level1">
 <h1>Basic Usage</h1>
-<p>We uses a randomly drawn sample of Yuhua Wang’s <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QZRAD"><code>China’s Corruption Investigations Dataset</code></a> to illustrate how the package works. In the data, the division codes were recorded with the 2019 version, and we added prefectural abbreviations for the sake of illustration.</p>
-<p>In <code>regioncode</code> package, we named administrative division codes as <code>code</code>, regions’ formal names as <code>name</code>, and their commonly used abbreviation as <code>sname</code>. The current version enables mutual conversion between any pair of them. To do so, users just need to pass a character vector of names or a numeric vector of geocodes into the function. In the current version, the function can produce three types of output at both the prefectural and provincial levels: codes (<code>code</code>), names (<code>name</code>) and area (<code>area</code>, such as 华北, 东北, 华南, etc.). One just needs to specify which type of the output they want in the argument <code>convert_to</code> and corresponding years of the input and output. For example, the following codes convert the 2019 geocodes in the <code>corruption</code> data to their 1989 version:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(regioncode)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corruption&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Original 2019 version</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>corruption<span class="sc">$</span>prefecture_id</span></code></pre></div>
+<p>We demonstrate the basic application of <code>regioncode</code> with
+a toy data randomly sampled from <span class="citation">Wang
+(2020)</span>’s China’s Corruption Investigations Dataset. In the
+<code>regioncode</code> field, administrative division codes are denoted
+as <code>code</code>, and the formal names of regions are referred to as
+<code>name</code>. The current version facilitates the mutual conversion
+between any pair of these elements. Users merely need to input a
+character vector of names or a numeric vector of geocodes into the
+function, specifying the desired output type with the
+<code>convert_to</code> argument.</p>
+<p>The following example illustrates the conversion of 2019 geocodes in
+the sample data to their 1989 version. It is essential for users to
+correctly set the <code>year_from</code> argument to reference the
+appropriate year. Subsequently, the <code>year_to</code> and
+<code>convert_to</code> arguments can be used to determine the desired
+year’s projection and the format type.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(regioncode)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;corruption&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># Conversion to the 1989 version</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture_id, </span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;code&quot;</span>, <span class="co"># default setting</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<pre><code>##  [1] 370100 329001 310227 420500 452200 433000 350300 512500 460025 420600</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Comparison</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">code2019 =</span> corruption<span class="sc">$</span>prefecture_id,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">code1989 =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture_id,</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;code&quot;</span>, <span class="co"># default setting</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="at">name2019 =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture_id,</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>, <span class="co"># default setting</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">2019</span>),</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  <span class="at">name1989 =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture_id,</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>, <span class="co"># default setting</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 4
+##    code2019 code1989 name2019 name1989
+##       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;   
+##  1   370100   370100 济南市   济南市  
+##  2   321200   329001 泰州市   泰州市  
+##  3   310117   310227 松江区   松江县  
+##  4   420500   420500 宜昌市   宜昌市  
+##  5   451300   452200 来宾市   柳州地区
+##  6   431200   433000 怀化市   怀化地区
+##  7   350300   350300 莆田市   莆田市  
+##  8   511500   512500 宜宾市   宜宾地区
+##  9   469021   460025 定安县   定安县  
+## 10   420600   420600 襄阳市   襄樊市</code></pre>
+<p>Note that if a region was initially geocoded in, for example, 1989
+and later included in a new region in 2019, the new region geocode will
+be subsequently used. If a large area was divided into several regions,
+the later-year codes will align with the first region according to the
+ascending order of the regions’ numeric geocodes.</p>
+<p>In the current version, <code>regioncode</code> automatically
+identifies the input format: numerics for geocodes and characters for
+names. The following example demonstrates the conversions from various
+types of input to alternative formats of outputs:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Original name</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">id =</span> corruption<span class="sc">$</span>prefecture_id,</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">name =</span> corruption<span class="sc">$</span>prefecture</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##        id name  
+##     &lt;dbl&gt; &lt;chr&gt; 
+##  1 370100 济南市
+##  2 321200 泰州市
+##  3 310117 松江区
+##  4 420500 宜昌市
+##  5 451300 来宾市
+##  6 431200 怀化市
+##  7 350300 莆田市
+##  8 511500 宜宾市
+##  9 469021 定安县
+## 10 420600 襄阳市</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Codes to name</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture_id, </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;济南市&quot;   &quot;泰州市&quot;   &quot;松江县&quot;   &quot;宜昌市&quot;   &quot;柳州地区&quot; &quot;怀化地区&quot;
+##  [7] &quot;莆田市&quot;   &quot;宜宾地区&quot; &quot;定安县&quot;   &quot;襄樊市&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Name to codes of the same year</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;code&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">2019</span>)</span></code></pre></div>
 <pre><code>##  [1] 370100 321200 310117 420500 451300 431200 350300 511500 469021 420600</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1999 version</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture_id, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;code&quot;</span>, <span class="co"># default set</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>)</span></code></pre></div>
-<pre><code>##  [1] 370100 329001 310227 420500 422700 452200 433000 350300 512500 460025
-## [11] 420600</code></pre>
-<p>Note that if a region was initially geocoded in e.g., 1989 and included in a new region, in 2019, the new region geocode will be used hereafter. If a big place was broken into several regions, the later-year codes will be aligned with the first region according to the ascendant order of the regions’ numeric geocodes.</p>
-<p>By altering the output format to <code>name</code>, one can easily convert codes or region names of a given year to region names in another year. <code>regioncode</code> automatically detects the input format, so users need to specify the <em>output</em> format only (together with the input and output years) to gain what they want. In the following example, we convert the geocode variable in the <code>corruption</code> dataset to region names and the name variable to codes and names in another year.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The original name</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>corruption<span class="sc">$</span>prefecture</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+6D4E&gt;&lt;U+5357&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+6CF0&gt;&lt;U+5DDE&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+677E&gt;&lt;U+6C5F&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+660C&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+6765&gt;&lt;U+5BBE&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+6000&gt;&lt;U+5316&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+8386&gt;&lt;U+7530&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+5BBE&gt;&lt;U+5E02&gt;&quot;
-##  [9] &quot;&lt;U+5B9A&gt;&lt;U+5B89&gt;&lt;U+53BF&gt;&quot; &quot;&lt;U+8944&gt;&lt;U+9633&gt;&lt;U+5E02&gt;&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Codes to name</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture_id, </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+6D4E&gt;&lt;U+5357&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+6CF0&gt;&lt;U+5DDE&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+677E&gt;&lt;U+6C5F&gt;&lt;U+53BF&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+660C&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+660C&gt;&lt;U+5730&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+67F3&gt;&lt;U+5DDE&gt;&lt;U+5730&gt;&lt;U+533A&gt;&quot;
-##  [7] &quot;&lt;U+6000&gt;&lt;U+5316&gt;&lt;U+5730&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+8386&gt;&lt;U+7530&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+5BBE&gt;&lt;U+5730&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+5B9A&gt;&lt;U+5B89&gt;&lt;U+53BF&gt;&quot; &quot;&lt;U+8944&gt;&lt;U+6A0A&gt;&lt;U+5E02&gt;&quot;</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Name to codes of the same year</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;code&quot;</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">2019</span>)</span></code></pre></div>
-<pre><code>##  [1] 370100 321200 310117 420500 451300 431200 350300 511500 469021 420600</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Name to name of a different year</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+6D4E&gt;&lt;U+5357&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+6CF0&gt;&lt;U+5DDE&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+677E&gt;&lt;U+6C5F&gt;&lt;U+53BF&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+660C&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+660C&gt;&lt;U+5730&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+67F3&gt;&lt;U+5DDE&gt;&lt;U+5730&gt;&lt;U+533A&gt;&quot;
-##  [7] &quot;&lt;U+6000&gt;&lt;U+5316&gt;&lt;U+5730&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+8386&gt;&lt;U+7530&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+5BBE&gt;&lt;U+5730&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+5B9A&gt;&lt;U+5B89&gt;&lt;U+53BF&gt;&quot; &quot;&lt;U+8944&gt;&lt;U+6A0A&gt;&lt;U+5E02&gt;&quot;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Name to name of a different year</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;济南市&quot;   &quot;泰州市&quot;   &quot;松江县&quot;   &quot;宜昌市&quot;   &quot;柳州地区&quot; &quot;怀化地区&quot;
+##  [7] &quot;莆田市&quot;   &quot;宜宾地区&quot; &quot;定安县&quot;   &quot;襄樊市&quot;</code></pre>
 </div>
 <div id="advanced-applications" class="section level1">
 <h1>Advanced Applications</h1>
-<p>To further help uses with “messier” data and diverse demands, <code>regioncode</code> provides five special conversions: conversion from data with incomplete data, specification of municipalities, conversion sociopolitical areas and linguistic areas, and pinyin output. The current version also allows conversions at the provincial level.</p>
-<div id="incomplete-naming-prefectures." class="section level2">
-<h2>Incomplete naming prefectures.</h2>
-<p>More than often, data codes may omit the administrative level when recording geo-information, e.g., using “北京” instead of “北京市.” To accomplish conversions of such data, one needs to specify the <code>incomplete_name</code> argument. If the input data is incomplete, users should set the argument as “from”; if they want the output name (when <code>convert_to = &quot;name&quot;</code>) to be without “city” or “prefecture,” they can set the argument to “to” (see the example below); and if users want to gain incomplete names for both input and output names, <code>incomplete_name = &quot;both&quot;</code>. All the above conversions can be over years.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full, official names</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>corruption<span class="sc">$</span>prefecture</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+6D4E&gt;&lt;U+5357&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+6CF0&gt;&lt;U+5DDE&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+677E&gt;&lt;U+6C5F&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+660C&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+6765&gt;&lt;U+5BBE&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+6000&gt;&lt;U+5316&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+8386&gt;&lt;U+7530&gt;&lt;U+5E02&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+5BBE&gt;&lt;U+5E02&gt;&quot;
-##  [9] &quot;&lt;U+5B9A&gt;&lt;U+5B89&gt;&lt;U+53BF&gt;&quot; &quot;&lt;U+8944&gt;&lt;U+9633&gt;&lt;U+5E02&gt;&quot;</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">incomplete_name =</span> <span class="st">&quot;to&quot;</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+6D4E&gt;&lt;U+5357&gt;&quot; &quot;&lt;U+6CF0&gt;&lt;U+5DDE&gt;&quot; &quot;&lt;U+677E&gt;&lt;U+6C5F&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+660C&gt;&quot; &quot;&lt;U+67F3&gt;&lt;U+5DDE&gt;&quot; &quot;&lt;U+6765&gt;&lt;U+5BBE&gt;&quot; &quot;&lt;U+6000&gt;&lt;U+5316&gt;&quot; &quot;&lt;U+8386&gt;&lt;U+7530&gt;&quot; &quot;&lt;U+5B9C&gt;&lt;U+5BBE&gt;&quot; &quot;&lt;U+5B9A&gt;&lt;U+5B89&gt;&quot;
-## [11] &quot;&lt;U+8944&gt;&lt;U+6A0A&gt;&quot; &quot;&lt;U+8944&gt;&lt;U+9633&gt;&quot;</code></pre>
+<p>The <code>regioncode</code> package also offers specialized
+conversion functions to assist users with more complex data and diverse
+requirements, including:</p>
+<ol style="list-style-type: decimal">
+<li>Conversion from/to incomplete names.</li>
+<li>Different handling of municipalities.</li>
+<li>Return of population-based city ranks.</li>
+<li>Return of pinyin format of outputs.</li>
+<li>Conversion of provincial data.</li>
+<li>Return of administrative areas.</li>
+<li>Return of linguistic zones.</li>
+</ol>
+<div id="incomplete-naming-of-prefectures" class="section level2">
+<h2>Incomplete Naming of Prefectures</h2>
+<p>Frequently, data codes may exclude the administrative level when
+recording geographical information, such as “北京” instead of “北京市,”
+or “内蒙” instead of “内蒙古自治区” referred to as “incomplete names.”
+To execute conversions for such data, one can specify the
+<code>incomplete_name</code> argument to “TRUE.” As long as there are
+two characters that can help to identify the city or province,
+<code>regioncode</code> can conduct the conversion. In the following
+example, we randomly removed 70% of the input city names to incomplete
+names and show how <code>regioncode</code> can deal with such
+problems:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Original full names</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>corruption<span class="sc">$</span>prefecture</span></code></pre></div>
+<pre><code>##  [1] &quot;济南市&quot; &quot;泰州市&quot; &quot;松江区&quot; &quot;宜昌市&quot; &quot;来宾市&quot; &quot;怀化市&quot; &quot;莆田市&quot; &quot;宜宾市&quot;
+##  [9] &quot;定安县&quot; &quot;襄阳市&quot;</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>fake_incomplete <span class="ot">&lt;-</span> corruption<span class="sc">$</span>prefecture</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>index_incomplete <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="fu">length</span>(corruption<span class="sc">$</span>prefecture)), <span class="dv">7</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>fake_incomplete[index_incomplete] <span class="ot">&lt;-</span> fake_incomplete[index_incomplete] <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>  <span class="fu">substr</span>(<span class="at">start =</span> <span class="dv">1</span>, <span class="at">stop =</span> <span class="dv">2</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>fake_incomplete</span></code></pre></div>
+<pre><code>##  [1] &quot;济南&quot;   &quot;泰州&quot;   &quot;松江&quot;   &quot;宜昌市&quot; &quot;来宾&quot;   &quot;怀化&quot;   &quot;莆田&quot;   &quot;宜宾市&quot;
+##  [9] &quot;定安&quot;   &quot;襄阳市&quot;</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Conversion to full names in 2008</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> fake_incomplete, </span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">2008</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>           <span class="at">incomplete_name =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;济南市&quot; &quot;泰州市&quot; &quot;松江区&quot; &quot;宜昌市&quot; &quot;来宾市&quot; &quot;怀化市&quot; &quot;莆田市&quot; &quot;宜宾市&quot;
+##  [9] &quot;定安县&quot; &quot;襄樊市&quot;</code></pre>
 </div>
 <div id="municipalities" class="section level2">
 <h2>Municipalities</h2>
-<p>Municipalities (“直辖市”) are geographically cities but administratively provincial. The districts within these municipalities are thus prefectural. Different analyses treat these districts differently: some parallel the districts aligned with other prefectures, while the others treat the entire municipality as one prefecture. To deal with the latter situation, <code>regioncode</code> sets an argument <code>zhixiashi</code>. When the argument is set <code>TRUE</code>, the municipalities are treated as whole prefectures, and their provincial codes are used as the geocodes.</p>
+<p>Municipalities (“直辖市”) in China are geographically cities but
+administratively provincial. Different geographic data may categorize
+them differently. Some data may treat municipalities as equivalent to
+prefectures.</p>
+<p>To convert this type of data, <code>regioncode</code> introduces a
+specific argument <code>zhixiashi</code>. The default value is “FALSE,”
+treating municipalities as provinces. When set to “TRUE,” municipalities
+are considered as prefectures, and their provincial codes are utilized
+as geocodes.</p>
+<p>The following example illustrates the municipalities identifier with
+a mixed string of names of municipalities, their districts, and a
+prefecture:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>names_municipality <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;北京市&quot;</span>, <span class="co"># Beijing, a municipality</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>                        <span class="st">&quot;海淀区&quot;</span>, <span class="co"># A district of Beijing</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>                        <span class="st">&quot;上海市&quot;</span>, <span class="co"># Shanghai, a municipality</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>                        <span class="st">&quot;静安区&quot;</span>, <span class="co"># A district of Shanghai</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>                        <span class="st">&quot;济南市&quot;</span>) <span class="co"># A prefecture of Shandong</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co"># When `zhixiashi` is FALSE, only the districts are recognized</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> names_municipality, </span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">2019</span>, </span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;code&quot;</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>           <span class="at">zhixiashi =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1]     NA 110108     NA 310106 370100</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># When `zhixiashi` is TRUE, municipalities are recognized</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> names_municipality,</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">2019</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;code&quot;</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>           <span class="at">zhixiashi =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 110000 110108 310000 310106 370100</code></pre>
 </div>
-<div id="sociopolitical-and-linguistic-areas" class="section level2">
-<h2>Sociopolitical and Linguistic Areas</h2>
-<p>Due to social, political, and martial reasons, Chinese regions are divided into seven regions:</p>
+<div id="city-ranking" class="section level2">
+<h2>City Ranking</h2>
+<p>The <em>Statistical Yearbook of Urban and Rural Construction</em>
+classifies Chinese cities into different levels, largely based on their
+populations <span class="citation">(国家统计局 2022b)</span>. From 1989
+to 2014, there were four levels of cities, and the system expanded to a
+7-level scale after 2014, as detailed in the following table:</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">region</th>
-<th>provincial-level administrative unit</th>
+<th align="left">Criterion</th>
+<th>Population</th>
+<th>Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Old (1989)</td>
+<td>&gt; 1 million</td>
+<td>超大城市</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td>500,000 ~ 1 million</td>
+<td>大城市</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td>200,000 ~ 500,000</td>
+<td>中等城市</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td>&lt; 200,000</td>
+<td>小城市</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td align="left">New (2014)</td>
+<td>&gt; 10 million</td>
+<td>超大城市</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td>5 million ~ 10 million</td>
+<td>特大城市</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td>3 million ~ 5 million</td>
+<td>I型大城市</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td>1 million ~ 3 million</td>
+<td>II型大城市</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td>500,000 ~ 1 million</td>
+<td>中等城市</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td>200,000 ~ 500,000</td>
+<td>I型小城市</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td>&lt; 200,000</td>
+<td>II型小城市</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>regioncode</code> function can return the rank of cities
+according to their populations for a given year. If the population is
+untraceable, the rank will be marked as <code>NA</code>. Users simply
+need to set <code>convert_to = &quot;rank&quot;</code> to perform the conversion.
+For regions in and before 1989, the old ranking system is applied. For
+other region-years, the function will return the new ranks. For some
+cities, we cannot find their populations from the official sources. The
+<code>rank</code> of them will be <code>NA</code>.</p>
+<p>The following example compares the ranks from the same input in
+different years:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>  <span class="at">city =</span> corruption<span class="sc">$</span>prefecture,</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="at">rank1989 =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>, </span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>           <span class="at">convert_to=</span><span class="st">&quot;rank&quot;</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>  <span class="at">rank2014 =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">2014</span>, </span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;rank&quot;</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##    city   rank1989 rank2014  
+##    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;     
+##  1 济南市 特大城市 I型大城市 
+##  2 泰州市 小城市   II型大城市
+##  3 松江区 特大城市 超大城市  
+##  4 宜昌市 中等城市 II型大城市
+##  5 来宾市 &lt;NA&gt;     中等城市  
+##  6 怀化市 小城市   I型小城市 
+##  7 莆田市 小城市   II型大城市
+##  8 宜宾市 中等城市 II型大城市
+##  9 定安县 &lt;NA&gt;     &lt;NA&gt;      
+## 10 襄阳市 中等城市 II型大城市</code></pre>
+</div>
+<div id="pinyin" class="section level2">
+<h2>Pinyin</h2>
+<p>Pinyin is a phonetic romanization of Chinese characters. Some data
+may store region names in pinyin instead of Chinese characters. The
+default name output of <code>regioncode</code> is in Chinese characters.
+However, thanks to Peng Zhao and Qu Cheng’s <a href="https://github.com/pzhaonet/pinyin">pinyin</a> package, users can
+now obtain pinyin format output from the <code>regioncode</code>
+function by setting the argument <code>to_pinyin = TRUE</code>. This
+function also corrects the romanization output for areas with special
+spellings, such as Shanxi vs. Shaanxi, Inner Mongolia, and special
+administrative regions. It works for official names, incomplete names,
+and administrative area outputs. The following example demonstrates how
+this function operates on various demands:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="at">city =</span> corruption<span class="sc">$</span>prefecture,</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="at">cityPY =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>, </span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>           <span class="at">to_pinyin =</span> <span class="cn">TRUE</span></span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>           ),</span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a>  <span class="at">areaPY =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>, </span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;area&quot;</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a>           <span class="at">to_pinyin =</span> <span class="cn">TRUE</span></span>
+<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a>           )</span>
+<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##    city   cityPY     areaPY   
+##    &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;    
+##  1 济南市 ji_nan     hua_dong 
+##  2 泰州市 tai_zhou   hua_dong 
+##  3 松江区 song_jiang hua_dong 
+##  4 宜昌市 yi_chang   hua_zhong
+##  5 来宾市 liu_zhou   hua_nan  
+##  6 怀化市 huai_hua   hua_zhong
+##  7 莆田市 pu_tian    hua_dong 
+##  8 宜宾市 yi_bin     xi_nan   
+##  9 定安县 ding_an    hua_nan  
+## 10 襄阳市 xiang_fan  hua_zhong</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># Regions with special spelling</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> <span class="fu">c</span>(<span class="st">&quot;山西&quot;</span>, <span class="st">&quot;陕西&quot;</span>, <span class="st">&quot;内蒙古&quot;</span>, <span class="st">&quot;香港&quot;</span>, <span class="st">&quot;澳门&quot;</span>), </span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">2008</span>, </span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>           <span class="at">incomplete_name =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>           <span class="at">province =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a>           <span class="at">to_pinyin =</span> <span class="cn">TRUE</span></span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>           )</span></code></pre></div>
+<pre><code>##             山西                                                    
+##        &quot;shan_xi&quot;       &quot;shaan_xi&quot; &quot;inner_mongolia&quot;      &quot;hong_kong&quot; 
+##                  
+##          &quot;macao&quot;</code></pre>
+</div>
+<div id="provinces" class="section level2">
+<h2>Provinces</h2>
+<p>The <code>regioncode</code> function also supports conversions at the
+provincial level. By setting the argument <code>province = TRUE</code>,
+users can convert all geocodes and names at this level. Chinese
+provinces have abbreviations, and when the converted data only contain
+abbreviations, users can set the <code>convert_to</code> argument to
+<code>abbreTocode</code>, <code>abbreToname</code>, or
+<code>abbreToarea</code> to obtain the desired data types. To receive
+abbreviation outputs, simply set <code>convert_to = &quot;abbre&quot;</code>.</p>
+<p>The following example demonstrates the conversion of a vector of
+province geocodes to their official names and abbreviations:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="at">province =</span> corruption<span class="sc">$</span>province_id,</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="at">prov_name =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>province_id, </span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;name&quot;</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>           <span class="at">province =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a>  <span class="at">prov_abbre =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>province_id, </span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;codeToabbre&quot;</span>,</span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a>           <span class="at">province =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##    province prov_name      prov_abbre
+##       &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;     
+##  1   370000 山东省         鲁        
+##  2   320000 江苏省         苏        
+##  3   310000 上海市         沪        
+##  4   420000 湖北省         鄂        
+##  5   450000 广西壮族自治区 桂        
+##  6   430000 湖南省         湘        
+##  7   350000 福建省         闽        
+##  8   510000 四川省         蜀        
+##  9   460000 海南省         琼        
+## 10   420000 湖北省         鄂</code></pre>
+</div>
+<div id="geographic-units-beyond-provinces" class="section level2">
+<h2>Geographic Units Beyond Provinces</h2>
+<p>The current version of <code>regioncode</code> encompasses two types
+of region conversion beyond the provincial level: administrative area
+and linguistic zones.</p>
+<div id="administrative-area" class="section level3">
+<h3>Administrative Area</h3>
+<p>Chinese regions are divided into seven areas for social, political,
+and martial reasons <span class="citation">(孙平 2020)</span>:</p>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="88%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th>Provincial-level Administrative Unit</th>
 </tr>
 </thead>
 <tbody>
@@ -269,93 +854,119 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p><code>regioncode</code> also offers a method “area” to convert codes and names of the region into such areas.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>, </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to=</span><span class="st">&quot;area&quot;</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+534E&gt;&lt;U+4E1C&gt;&quot; &quot;&lt;U+534E&gt;&lt;U+4E1C&gt;&quot; &quot;&lt;U+534E&gt;&lt;U+4E1C&gt;&quot; &quot;&lt;U+534E&gt;&lt;U+4E2D&gt;&quot; &quot;&lt;U+534E&gt;&lt;U+5357&gt;&quot; &quot;&lt;U+534E&gt;&lt;U+4E2D&gt;&quot; &quot;&lt;U+534E&gt;&lt;U+4E1C&gt;&quot; &quot;&lt;U+897F&gt;&lt;U+5357&gt;&quot; &quot;&lt;U+534E&gt;&lt;U+5357&gt;&quot; &quot;&lt;U+534E&gt;&lt;U+4E2D&gt;&quot;</code></pre>
-<p>China is a multilingual country with a variety of dialects. These dialects may be used by several prefectures in a province or province. Prefectures from different provinces may also share the same dialect.</p>
-<p><code>regioncode</code> allows users to gain linguistic zones the prefectures belong as an output. Users can gain two levels of linguistic zones, dialect groups and dialect sub-groups by setting the argument <code>to_pinyin</code> to <code>dia_group</code> or <code>dia_sub_group</code>. Note that, the linguistic distribution in China is too complex for precisely gauging at the prefectural level. The linguistic zone output from <code>regioncode</code> is thus at most for reference rather than rigorous linguistic research.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">to_dialect =</span> <span class="st">&quot;dia_group&quot;</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+5180&gt;&lt;U+9C81&gt;&lt;U+5B98&gt;&lt;U+8BDD&gt;&quot; &quot;&lt;U+6C5F&gt;&lt;U+6DEE&gt;&lt;U+5B98&gt;&lt;U+8BDD&gt;&quot; &quot;&lt;U+5434&gt;&lt;U+8BED&gt;&quot; &quot;&lt;U+897F&gt;&lt;U+5357&gt;&lt;U+5B98&gt;&lt;U+8BDD&gt;&quot; &quot;&lt;U+897F&gt;&lt;U+5357&gt;&lt;U+5B98&gt;&lt;U+8BDD&gt;&quot; &quot;&lt;U+6E58&gt;&lt;U+8BED&gt;&quot;
-##  [7] &quot;&lt;U+8386&gt;&lt;U+4ED9&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+897F&gt;&lt;U+5357&gt;&lt;U+5B98&gt;&lt;U+8BDD&gt;&quot; &quot;&lt;U+743C&gt;&lt;U+6587&gt;&lt;U+533A&gt;&quot; &quot;&lt;U+897F&gt;&lt;U+5357&gt;&lt;U+5B98&gt;&lt;U+8BDD&gt;&quot;</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">to_dialect =</span> <span class="st">&quot;dia_sub_group&quot;</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+6CA7&gt;&lt;U+60E0&gt;&lt;U+7247&gt;-1&quot; &quot;&lt;U+77F3&gt;&lt;U+6D4E&gt;&lt;U+7247&gt;-8&quot; &quot;&lt;U+6CF0&gt;&lt;U+5982&gt;&lt;U+7247&gt;-1&quot; &quot;&lt;U+592A&gt;&lt;U+6E56&gt;&lt;U+7247&gt;-1&quot; &quot;&lt;U+6210&gt;&lt;U+6E1D&gt;&lt;U+7247&gt;-3&quot; &quot;&lt;U+6210&gt;&lt;U+6E1D&gt;&lt;U+7247&gt;-9&quot;
-##  [7] &quot;&lt;U+6842&gt;&lt;U+67F3&gt;&lt;U+7247&gt;-10&quot; &quot;&lt;U+5C91&gt;&lt;U+6C5F&gt;&lt;U+7247&gt;-2&quot; &quot;&lt;U+5409&gt;&lt;U+6E86&gt;&lt;U+7247&gt;-3&quot; &quot;&lt;U+5A04&gt;&lt;U+90B5&gt;&lt;U+7247&gt;-1&quot; &quot;&lt;U+9ED4&gt;&lt;U+5317&gt;&lt;U+7247&gt;-3&quot; &quot;&lt;U+957F&gt;&lt;U+76CA&gt;&lt;U+7247&gt;-3&quot;
-## [13] &quot;&lt;U+8386&gt;&lt;U+4ED9&gt;&lt;U+533A&gt;-4&quot; &quot;&lt;U+704C&gt;&lt;U+8D64&gt;&lt;U+7247&gt;-10&quot; &quot;&lt;U+5E9C&gt;&lt;U+57CE&gt;&lt;U+7247&gt;-1&quot; &quot;&lt;U+9102&gt;&lt;U+5317&gt;&lt;U+7247&gt;-10&quot;</code></pre>
+<p>In certain cases, users may wish to identify the area to which a
+prefecture or province belongs. <code>regioncode</code> offers a
+function to convert codes and names of the region (both prefectures and
+provinces) into areas by setting the output format as “area”:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>, </span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;area&quot;</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;华东&quot; &quot;华东&quot; &quot;华东&quot; &quot;华中&quot; &quot;华南&quot; &quot;华中&quot; &quot;华东&quot; &quot;西南&quot; &quot;华南&quot; &quot;华中&quot;</code></pre>
 </div>
-<div id="pinyin" class="section level2">
-<h2>Pinyin</h2>
-<p>Pinyin is a Chinese phonetic romanization. Some data stores the region names with pinyin instead of Chinese characters. The default name output of <code>regioncode</code> uses Chinese characters, but one can gain pinyin output by setting the argument <code>to_pinyin = TRUE</code>. The effect can be applied to either official name, incomplete name, or sociopolitical area outputs.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>, </span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to=</span><span class="st">&quot;name&quot;</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">to_pinyin=</span><span class="cn">TRUE</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>           )</span></code></pre></div>
-<pre><code>## &lt;U+6D4E&gt;&lt;U+5357&gt;&lt;U+5E02&gt; &lt;U+6CF0&gt;&lt;U+5DDE&gt;&lt;U+5E02&gt; &lt;U+677E&gt;&lt;U+6C5F&gt;&lt;U+53BF&gt; &lt;U+5B9C&gt;&lt;U+660C&gt;&lt;U+5E02&gt; 
-##      &quot;ji_nan_shi&quot;    &quot;tai_zhou_shi&quot; &quot;song_jiang_xian&quot;    &quot;yi_chang_shi&quot; 
-## &lt;U+5B9C&gt;&lt;U+660C&gt;&lt;U+5730&gt;&lt;U+533A&gt; &lt;U+67F3&gt;&lt;U+5DDE&gt;&lt;U+5730&gt;&lt;U+533A&gt; &lt;U+6000&gt;&lt;U+5316&gt;&lt;U+5730&gt;&lt;U+533A&gt; &lt;U+8386&gt;&lt;U+7530&gt;&lt;U+5E02&gt; 
-##  &quot;yi_chang_di_qu&quot;  &quot;liu_zhou_di_qu&quot;  &quot;huai_hua_di_qu&quot;     &quot;pu_tian_shi&quot; 
-## &lt;U+5B9C&gt;&lt;U+5BBE&gt;&lt;U+5730&gt;&lt;U+533A&gt; &lt;U+5B9A&gt;&lt;U+5B89&gt;&lt;U+53BF&gt; &lt;U+8944&gt;&lt;U+6A0A&gt;&lt;U+5E02&gt; 
-##    &quot;yi_bin_di_qu&quot;    &quot;ding_an_xian&quot;   &quot;xiang_fan_shi&quot;</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>, </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to=</span><span class="st">&quot;name&quot;</span>,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">incomplete_name =</span> <span class="st">&quot;to&quot;</span>,</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">to_pinyin=</span><span class="cn">TRUE</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>           )</span></code></pre></div>
-<pre><code>## &lt;U+6D4E&gt;&lt;U+5357&gt; &lt;U+6CF0&gt;&lt;U+5DDE&gt; &lt;U+677E&gt;&lt;U+6C5F&gt; &lt;U+5B9C&gt;&lt;U+660C&gt; &lt;U+67F3&gt;&lt;U+5DDE&gt; &lt;U+6765&gt;&lt;U+5BBE&gt; 
-##     &quot;ji_nan&quot;   &quot;tai_zhou&quot; &quot;song_jiang&quot;   &quot;yi_chang&quot;   &quot;liu_zhou&quot;    &quot;lai_bin&quot; 
-## &lt;U+6000&gt;&lt;U+5316&gt; &lt;U+8386&gt;&lt;U+7530&gt; &lt;U+5B9C&gt;&lt;U+5BBE&gt; &lt;U+5B9A&gt;&lt;U+5B89&gt; &lt;U+8944&gt;&lt;U+6A0A&gt; &lt;U+8944&gt;&lt;U+9633&gt; 
-##   &quot;huai_hua&quot;    &quot;pu_tian&quot;     &quot;yi_bin&quot;    &quot;ding_an&quot;  &quot;xiang_fan&quot; &quot;xiang_yang&quot;</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>, </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to=</span><span class="st">&quot;area&quot;</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">to_pinyin=</span><span class="cn">TRUE</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>           )</span></code></pre></div>
-<pre><code>## &lt;U+534E&gt;&lt;U+4E1C&gt; &lt;U+534E&gt;&lt;U+4E1C&gt; &lt;U+534E&gt;&lt;U+4E1C&gt; &lt;U+534E&gt;&lt;U+4E2D&gt; &lt;U+534E&gt;&lt;U+5357&gt; &lt;U+534E&gt;&lt;U+4E2D&gt; 
-##  &quot;hua_dong&quot;  &quot;hua_dong&quot;  &quot;hua_dong&quot; &quot;hua_zhong&quot;   &quot;hua_nan&quot; &quot;hua_zhong&quot; 
-## &lt;U+534E&gt;&lt;U+4E1C&gt; &lt;U+897F&gt;&lt;U+5357&gt; &lt;U+534E&gt;&lt;U+5357&gt; &lt;U+534E&gt;&lt;U+4E2D&gt; 
-##  &quot;hua_dong&quot;    &quot;xi_nan&quot;   &quot;hua_nan&quot; &quot;hua_zhong&quot;</code></pre>
+<div id="linguistic-zone" class="section level3">
+<h3>Linguistic Zone</h3>
+<p>China is a multilingual country with various dialects. These dialects
+may be used across several prefectures in a province or even across
+different provinces. For political and sociolinguistic studies,
+<code>regioncode</code> includes a function to return approximate
+linguistic zones of given geocodes or prefectural names. In the current
+version, <code>regioncode</code> offers two levels of linguistic zone
+identification: dialect groups (<code>dia_group</code>, “方言大类”) and
+dialect sub-groups (<code>dia_sub_group</code>, “分区片”), according to
+the 1987 language atlas of China <span class="citation">(Li, Xiong, and
+Zhang 1987)</span>. (When <code>province = TRUE</code>, the linguistic
+conversion can only be to the dialect group level.)</p>
+<p>The following example converts the toy data to dialect groups and
+sub-groups:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="at">city =</span> corruption<span class="sc">$</span>prefecture,</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="at">dialectGroup =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>           <span class="at">to_dialect =</span> <span class="st">&quot;dia_group&quot;</span>),</span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>  <span class="at">dialectSubGroup =</span> <span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>prefecture, </span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a>           <span class="at">to_dialect =</span> <span class="st">&quot;dia_sub_group&quot;</span>)</span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##    city   dialectGroup dialectSubGroup                             
+##    &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;                                       
+##  1 济南市 冀鲁官话     沧惠片-1,石济片-8                           
+##  2 泰州市 江淮官话     泰如片-1                                    
+##  3 松江区 吴语         太湖片-1                                    
+##  4 宜昌市 西南官话     成渝片-3,成渝片-9                           
+##  5 来宾市 西南官话     桂柳片-10                                   
+##  6 怀化市 湘语         岑江片-2,吉溆片-3,娄邵片-1,黔北片-3,长益片-3
+##  7 莆田市 莆仙区       莆仙区-4                                    
+##  8 宜宾市 西南官话     灌赤片-10                                   
+##  9 定安县 琼文区       府城片-1                                    
+## 10 襄阳市 西南官话     鄂北片-10</code></pre>
+<p>Note that the linguistic distribution in China is too complex for
+precise gauging at the prefectural level, and it continually changes
+with population dynamics. The linguistic zone output from
+<code>regioncode</code> is thus for reference rather than rigorous
+linguistic research.</p>
 </div>
-<div id="provinces" class="section level2">
-<h2>Provinces</h2>
-<p><code>regioncode</code> allows conversions at not only the prefectural but provincial level. By setting the argument <code>province = TRUE</code>, users can accomplish all the code, name, and area conversions at the provincial level. (Note that, at the provincial level, the linguistic conversion can be only to dialect group.) Moreover, since provinces have fixed abbreviations, <code>regioncode</code> allows names not only being, e.g., “宁夏” instead of “宁夏回族自治区” but also “宁”. When the inputs are abbreviations, users can set the <code>convert_to</code> argument to <code>abbreTocode</code>, <code>abbreToname</code>, or <code>abbreToarea</code>. When they want provincial abbreviation outputs, just set <code>convert_to = &quot;abbre&quot;</code>.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regioncode</span>(<span class="at">data_input =</span> corruption<span class="sc">$</span>province_id, </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert_to =</span> <span class="st">&quot;codeToabbre&quot;</span>,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_from =</span> <span class="dv">2019</span>,</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">year_to =</span> <span class="dv">1989</span>,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">province =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;&lt;U+9C81&gt;&quot; &quot;&lt;U+82CF&gt;&quot; &quot;&lt;U+6CAA&gt;&quot; &quot;&lt;U+9102&gt;&quot; &quot;&lt;U+6842&gt;&quot; &quot;&lt;U+6E58&gt;&quot; &quot;&lt;U+95FD&gt;&quot; &quot;&lt;U+8700&gt;&quot; &quot;&lt;U+743C&gt;&quot; &quot;&lt;U+9102&gt;&quot;</code></pre>
 </div>
-<div id="conclusion" class="section level2">
-<h2>Conclusion</h2>
-<p><code>regioncode</code> provides a convenient way to convert Chinese administrative division codes, official names, sociopolitical and linguistic areas, abbreviations, and so on between each other. This vignette offers a quick view of package features and a short tutorial for users.</p>
-<p>The development of the package is ongoing. Future versions aim to add more administrative level choices, from province level to county level. Data are also enriching. Welcome to join us if you are also interested (see the affiliations below). Please contact us with any questions or comments. Bug reports can be conducted by <a href="https://github.com/sammo3182/regioncode/issues">Github Issues</a>.</p>
-<p>Also thanks ZHU Meng and LIU Xueyan for helping writing the ‘Advanced Application’ section of this vignette.</p>
 </div>
-<div id="affiliation" class="section level2">
-<h2>Affiliation</h2>
-<p>Dr. Yue Hu</p>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p><code>regioncode</code> offers a convenient method for converting
+Chinese administrative division codes, official names, and facilitating
+various specific conversions. The development of the package is ongoing,
+with future versions aiming to add more administrative level choices and
+enriching data. Collaboration is welcome, and questions, comments, or
+bug reports can be directed to <a href="https://github.com/sammo3182/regioncode/issues">Github
+Issues</a>.</p>
+<p>We extend our appreciation to LI Ruizhe, ZHU Meng, SHI Yuyang, XU
+Yujia, PAN Yuxin, TIAN Haiting, SHAO Weihang, CHEN Yuanqian, and LIU
+Xueyan for their contributions to data collection and function editing
+of this package.</p>
+</div>
+<div id="reference" class="section level1">
+<h1>Reference</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-LiEtAl1987" class="csl-entry">
+Li, Rong, Zhenghui Xiong, and Zhenxing Zhang. 1987. <em>The Language
+Atlas of China</em>. <span>London: Longman</span>.
+</div>
+<div id="ref-Wang2020c" class="csl-entry">
+Wang, Yuhua. 2020. <span>“China’s Corruption Investigations
+Dataset.”</span> <span>Harvard Dataverse</span>. <a href="https://doi.org/10.7910/DVN/9QZRAD">https://doi.org/10.7910/DVN/9QZRAD</a>.
+</div>
+<div id="ref-GuoJiaTongJiJu2022" class="csl-entry">
+国家统计局. 2022a.
+<span>“关于更新全国统计用区划代码和城乡划分代码的公告.”</span>
+<span>中华人民共和国国家统计局</span>.
+</div>
+<div id="ref-GuoJiaTongJiJu2022a" class="csl-entry">
+———, ed. 2022b. <em>中国统计年鉴2022（附光盘）
+中国城乡建设统计年鉴2021（2022年新书）</em>. 中国统计年鉴.
+<span>中国统计出版社</span>. <a href="https://item.jd.com/10038568378953.html">https://item.jd.com/10038568378953.html</a>.
+</div>
+<div id="ref-SunPing2020" class="csl-entry">
+孙平. 2020. <span>“把握新时代行政区划优化设置的着力点 -
+中华人民共和国民政部.”</span> <em>中国社会报</em>, December 14, 2020.
+</div>
+<div id="ref-MinZhengBu2022" class="csl-entry">
+民政部. 2022. <span>“2021年中华人民共和国行政区划代码.”</span>
+<span>中华人民共和国民政部</span>.
+</div>
+</div>
+</div>
+<div id="affiliation" class="section level1">
+<h1>Affiliation</h1>
+<p>Yue Hu</p>
 <p>Department of Political Science,<br />
 Tsinghua University,<br />
 Email: <a href="mailto:yuehu@tsinghua.edu.cn" class="email">yuehu@tsinghua.edu.cn</a><br />
-Website: <a href="https://sammo3182.github.io" class="uri">https://sammo3182.github.io</a></p>
-<p>Wenquan Wu</p>
+Website: <a href="https://www.drhuyue.site" class="uri">https://www.drhuyue.site</a></p>
+<p>Xinyi Ye</p>
 <p>Department of Political Science,<br />
 Tsinghua University,<br />
-Email: <a href="mailto:wuwq20@mails.tsinghua.edu.cn" class="email">wuwq20@mails.tsinghua.edu.cn</a></p>
-</div>
+Email: <a href="mailto:yexy23@mails.tsinghua.edu.cn" class="email">yexy23@mails.tsinghua.edu.cn</a></p>
 </div>
 
 
