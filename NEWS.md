@@ -1,8 +1,13 @@
-# 0.2.1
+# 0.2.0
 
+- Updated the code to assign province‘s name to a city based on the year
+- Added more data like Yunnan and Guizhou
+- Extended the year range to 2022
+- Fixed some data errors
+- Vectorized the merging functions
 - Corrected the region codes of Xinjiang
 
-# 0.2.0
+# 0.1.2
 
 - New function `rank` for level of cities
 - New method in `incomplete_name` so that the function can deal with input with only part of incomplete region names
